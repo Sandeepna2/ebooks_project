@@ -9,4 +9,7 @@ def home(request):
 def contact(request):
     return HttpResponse("contact us")
 
+def about(request):
+    return HttpResponse("about us")
+
 
