@@ -1,48 +1,30 @@
 from django.contrib import admin
-from .models import Book, BookAuthor,BookCategory
+from django.contrib.auth.admin import UserAdmin
+from .models import CustomUser, Category, Book, Review, Cart, CartItem, Order, OrderItem
 
 # Register your models here.
-class BookInline(admin.TabularInline):
-        model = Book
-        extra = 1
 
+class CustomUserAdmin(UserAdmin):
+    # Customize the admin panel fields if necessary
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('bio', 'profile_picture', 'date_of_birth', 'location', 'website')}),
+    )
 
-@admin.register(Book)
-class BookAdmin(admin.ModelAdmin):
-    raw_id_fields = ('author','category')
-    
-    list_display = ['id', 'title', 'author', 'price', 'published_date', 'status','category']
-    list_filter = ('status', 'published_date')
-    search_fields = ('title', 'author')
-    list_per_page = 20
-    date_hierarchy = 'published_date'
-    ordering = ('-published_date',)
-    prepopulated_fields = {'slug': ('title',)}
-    
-    
-    
-@admin.register(BookAuthor)
-class BookAuthorAdmin(admin.ModelAdmin):
-    
-    list_display = ['name','user', 'bio', 'website' , 'profile_picture']
-    list_filter = ('user',)
-    search_fields = ('user', 'bio')
-    list_per_page = 20
-    ordering = ('user',)
-    # prepopulated_fields = {'slug': ('user',)}
-    
-@admin.register(BookCategory)
-class BookCategoryAdmin(admin.ModelAdmin):
+admin.site.register(CustomUser, CustomUserAdmin)
 
-    list_display = ['id', 'name']
-    list_filter = ('name',)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
     search_fields = ('name', 'description')
-    list_per_page = 20
-    ordering = ('name',)
-    prepopulated_fields = {'slug': ('name',)}
-    inlines = [BookInline]
+    list_filter = ('name', )
+    save_on_top = True
     
-    
+    list_per_page = 10
+
+admin.site.register(Category, CategoryAdmin)
+
+admin.site.register(Book)
 
 
-
+admin.site.register(Review)
+admin.site.register(Cart)
+admin.site.register(Order)
