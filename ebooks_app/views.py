@@ -102,8 +102,6 @@ def add_to_cart(request, book_id):
 def checkout(request):
     return render(request, 'checkout.html', { })
 
-
-
 def login(request):
     return render(request, 'login.html', { })
 

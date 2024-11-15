@@ -20,12 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%wq!_-772ss7zi#0b%*vp4m0$fgmsm%mu4mq(s(3!66yyegc_h'
+SECRET_KEY = 'django-insecure-dg&^w%%w3(^)wsbydfm59t$f(1*%(9(fy5zllcgs%r*!69q05*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+AUTH_USER_MODEL = 'ebooks_app.CustomUser'
 
 
 # Application definition
@@ -37,13 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'ebooks_app',
+    'django_bootstrap5',
+
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -55,8 +62,8 @@ ROOT_URLCONF = 'ebooks_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Ensure this directory exists and contains your templates
-        'APP_DIRS': True,  # Set this to True for app-specific templates
+        'DIRS': [],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -67,7 +74,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'ebooks_project.wsgi.application'
 
@@ -105,13 +111,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+# Define available languages
+LANGUAGES = [
+    ('en', 'English'),
+    ('kn', 'Kannada'),
+]
 
 TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
+
+# Path to store translation files
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/',
+]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -123,7 +140,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'ebooks_app.CustomUser'
-
-

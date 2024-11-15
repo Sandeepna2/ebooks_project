@@ -17,7 +17,22 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description')
     list_filter = ('name', )
     save_on_top = True
-    
+    # readonly_fields = ('description', )
+    # exclude = ('description', )
+    # fields = ('description', 'name')
+    # fieldsets = (
+    #     ('Category Information', {'fields': ('name',)}),
+    #     ('Description', {'fields': ('description',), 'classes': ('collapse',)}),
+    # )
+    # actions = ['mark_published', 'archive_categories']
+
+    # def mark_published(self, request, queryset):
+    #     queryset.update(status='published')
+
+    # def archive_categories(self, request, queryset):
+    #     queryset.update(status='archived')
+
+    # prepopulated_fields = {'description': ('name', )}
     list_per_page = 10
 
 admin.site.register(Category, CategoryAdmin)
